@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>旅遊趣</title>
+    <title>台灣旅遊趣</title>
     <link rel="stylesheet" href="./css/all.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
@@ -36,6 +36,7 @@
           <div class="addTicket-input">
             <label for="ticketName">套票名稱</label>
             <input
+              class="addTicketInput"
               type="text"
               id="ticketName"
               placeholder="請填寫套票名稱"
@@ -43,16 +44,14 @@
             />
           </div>
           <div class="alert-message">
-            <p id="ticketName-message" data-message="套票名稱">
-              <!--    <i class="fas fa-exclamation-circle"></i>
-                        <span>必填!</span> -->
-            </p>
+            <p id="ticketName-message" data-message="ticketName"></p>
           </div>
         </div>
         <div class="form-group">
           <div class="addTicket-input">
             <label for="ticketImgUrl">圖片網址</label>
             <input
+              class="addTicketInput"
               type="text"
               id="ticketImgUrl"
               placeholder="請填寫圖片網址"
@@ -60,7 +59,7 @@
             />
           </div>
           <div class="alert-message">
-            <p id="ticketImgUrl-message" data-message="圖片網址">
+            <p id="ticketImgUrl-message" data-message="ticketImgUrl">
               <!-- <i class="fas fa-exclamation-circle"></i>
                           <span>必填!</span> -->
             </p>
@@ -69,10 +68,14 @@
         <div class="form-group">
           <div class="addTicket-input">
             <label for="ticketRegion">景點地區</label>
-            <select id="ticketRegion" name="景點地區"></select>
+            <select
+              class="addTicketInput"
+              id="ticketRegion"
+              name="景點地區"
+            ></select>
           </div>
           <div class="alert-message">
-            <p id="ticketRegion-message" data-message="景點地區">
+            <p id="ticketRegion-message" data-message="ticketRegion">
               <!-- <i class="fas fa-exclamation-circle"></i>
                           <span>必填!</span> -->
             </p>
@@ -82,6 +85,7 @@
           <div class="addTicket-input">
             <label for="ticketPrice">套票金額</label>
             <input
+              class="addTicketInput"
               type="number"
               id="ticketPrice"
               placeholder="請填寫套票金額"
@@ -90,7 +94,7 @@
             />
           </div>
           <div class="alert-message">
-            <p id="ticketPrice-message" data-message="套票金額">
+            <p id="ticketPrice-message" data-message="ticketPrice">
               <!-- <i class="fas fa-exclamation-circle"></i>
                           <span>必填!</span> -->
             </p>
@@ -100,6 +104,7 @@
           <div class="addTicket-input">
             <label for="ticketNum">套票組數</label>
             <input
+              class="addTicketInput"
               type="number"
               id="ticketNum"
               placeholder="請填寫套票組數"
@@ -108,7 +113,7 @@
             />
           </div>
           <div class="alert-message">
-            <p id="ticketNum-message" data-message="套票組數">
+            <p id="ticketNum-message" data-message="ticketNum">
               <!-- <i class="fas fa-exclamation-circle"></i>
                           <span>必填!</span> -->
             </p>
@@ -118,6 +123,7 @@
           <div class="addTicket-input">
             <label for="ticketRate">套票星級</label>
             <input
+              class="addTicketInput"
               type="number"
               id="ticketRate"
               placeholder="請填寫套票星級"
@@ -127,7 +133,7 @@
             />
           </div>
           <div class="alert-message">
-            <p id="ticketRate-message" data-message="套票星級">
+            <p id="ticketRate-message" data-message="ticketRate">
               <!-- <i class="fas fa-exclamation-circle"></i>
                           <span>必填!</span> -->
             </p>
@@ -137,19 +143,25 @@
           <div class="addTicket-input">
             <label for="ticketDescription">套票描述</label>
             <textarea
+              class="addTicketInput"
               name="套票描述"
               id="ticketDescription"
               placeholder="請填寫套票描述 (限 100 字)"
             ></textarea>
           </div>
           <div class="alert-message">
-            <p id="ticketDescription-message" data-message="套票描述">
+            <p id="ticketDescription-message" data-message="ticketDescription">
               <!-- <i class="fas fa-exclamation-circle"></i>
               <span>必填!</span> -->
             </p>
           </div>
         </div>
-        <input type="button" class="addTicket-btn btn" value="新增套票" />
+        <input
+          type="button"
+          class="addTicket-btn btn"
+          value="新增套票"
+          disabled
+        />
       </form>
     </section>
     <section class="main-content">

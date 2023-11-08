@@ -93,11 +93,11 @@ getRegionOptions();
 // 渲染景點地區選項
 const ticketRegionSelect = document.querySelector("#ticketRegion");
 const selectRegionList = [
-  "臺北",
+  "台北",
   "新北",
   "桃園",
-  "臺中",
-  "臺南",
+  "台中",
+  "台南",
   "高雄",
   "新竹",
   "苗栗",
@@ -108,7 +108,7 @@ const selectRegionList = [
   "屏東",
   "宜蘭",
   "花蓮",
-  "臺東",
+  "台東",
   "澎湖",
   "金門",
   "連江",
@@ -165,10 +165,7 @@ function getTotalNum(data) {
 }
 getTotalNum(data);
 
-// 新增套票
-let addTicketBtn = document.querySelector(".addTicket-btn");
-const newTicket = {};
-
+// 監聽表格內容變化
 let ticketName = document.querySelector("#ticketName");
 let ticketImgUrl = document.querySelector("#ticketImgUrl");
 let ticketRegion = document.querySelector("#ticketRegion");
@@ -177,47 +174,86 @@ let ticketNum = document.querySelector("#ticketNum");
 let ticketRate = document.querySelector("#ticketRate");
 let ticketDes = document.querySelector("#ticketDescription");
 
+const formValue = {};
+
+// 取得欄位元素
+const addTicketInputs = document.querySelectorAll(".addTicketInput");
+
+addTicketInputs.forEach(function (addTicketInput) {
+  // 監聽欄位元素變化
+  addTicketInput.addEventListener("change", function () {
+    let formItemId = addTicketInput.id;
+    let formItem = formValue[formItemId];
+    formItem = addTicketInput.value;
+    formValue[formItemId] = addTicketInput.value;
+
+    // 警示訊息判斷
+    const alertMessage = document.querySelector(
+      `.alert-message > p[data-message=${formItemId}]`
+    );
+
+    if (formItem === "") {
+      alertMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i>
+        <span>必填!</span>`;
+    } else if (formItemId == "ticketPrice" && formItem == 0) {
+      alertMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i>
+        <span>金額不可為 0！</span>`;
+    } else if (formItemId == "ticketNum" && formItem == 0) {
+      alertMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i>
+        <span>組數不可為 0！</span>`;
+    } else if (formItemId == "ticketRate" && (formItem < 1 || formItem > 10)) {
+      alertMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i>
+        <span>星級為 1 ~ 10！</span>`;
+    } else {
+      alertMessage.innerHTML = "";
+    }
+
+    // 新增套票按鈕 disabled 狀態
+    if (
+      !formValue.ticketName == "" &&
+      !formValue.ticketImgUrl == "" &&
+      !formValue.ticketRegion == "" &&
+      !formValue.ticketPrice == "" &&
+      !formValue.ticketNum == "" &&
+      !formValue.ticketRate == "" &&
+      !formValue.ticketDescription == ""
+    ) {
+      addTicketBtn.removeAttribute("disabled");
+    } else {
+      addTicketBtn.setAttribute("disabled", "disabled");
+    }
+  });
+});
+
+// 新增套票
+let addTicketBtn = document.querySelector(".addTicket-btn");
+
 addTicketBtn.addEventListener("click", function () {
-  nameValue = ticketName.value;
-  imgUrlValue = ticketImgUrl.value;
-  regionValue = ticketRegion.value;
-  priceValue = ticketPrice.value;
-  numValue = ticketNum.value;
-  rateValue = ticketRate.value;
-  desValue = ticketDes.value;
+  const obj = {
+    id: formValue.length,
+    name: formValue.ticketName,
+    imgUrl: formValue.ticketImgUrl,
+    area: formValue.ticketRegion,
+    description: formValue.ticketDescription,
+    group: formValue.ticketNum,
+    price: formValue.ticketPrice,
+    rate: formValue.ticketRate,
+  };
+  console.log(obj);
 
-  if (
-    nameValue &&
-    imgUrlValue &&
-    regionValue &&
-    priceValue &&
-    numValue &&
-    rateValue &&
-    desValue
-  ) {
-    const obj = {
-      id: data.length,
-      name: nameValue,
-      imgUrl: imgUrlValue,
-      area: regionValue,
-      description: desValue,
-      group: numValue,
-      price: priceValue,
-      rate: rateValue,
-    };
-    data.push(obj);
-    renderCards(data);
-    getRegionOptions();
-    renderSearchRegion();
+  data.push(obj);
+  renderCards(data);
+  getRegionOptions();
+  renderSearchRegion();
+  getTotalNum(data);
 
-    ticketName.value = "";
-    ticketImgUrl.value = "";
-    ticketRegion.value = "";
-    ticketPrice.value = "";
-    ticketNum.value = "";
-    ticketRate.value = "";
-    ticketDes.value = "";
-  } else {
-    alert("還有欄位沒填");
-  }
+  // input的值清空
+  ticketName.value = "";
+  ticketImgUrl.value = "";
+  ticketRegion.value = "";
+  ticketPrice.value = "";
+  ticketNum.value = "";
+  ticketRate.value = "";
+  ticketDes.value = "";
+  addTicketBtn.setAttribute("disabled", "disabled");
 });
