@@ -1,4 +1,4 @@
-let data;
+let data = [];
 
 axios
   .get(
@@ -149,7 +149,7 @@ let ticketNum = document.querySelector("#ticketNum");
 let ticketRate = document.querySelector("#ticketRate");
 let ticketDes = document.querySelector("#ticketDescription");
 
-const formValue = {};
+let formValue = {};
 
 // 取得欄位元素
 const addTicketInputs = document.querySelectorAll(".addTicketInput");
@@ -189,8 +189,12 @@ addTicketInputs.forEach(function (addTicketInput) {
       !formValue.ticketImgUrl == "" &&
       !formValue.ticketRegion == "" &&
       !formValue.ticketPrice == "" &&
+      formValue.ticketPrice > 0 &&
       !formValue.ticketNum == "" &&
+      formValue.ticketNum > 0 &&
       !formValue.ticketRate == "" &&
+      formValue.ticketRate > 0 &&
+      formValue.ticketRate < 11 &&
       !formValue.ticketDescription == ""
     ) {
       addTicketBtn.removeAttribute("disabled");
@@ -230,5 +234,8 @@ addTicketBtn.addEventListener("click", function () {
   ticketNum.value = "";
   ticketRate.value = "";
   ticketDes.value = "";
+
+  formValue = {};
+
   addTicketBtn.setAttribute("disabled", "disabled");
 });
